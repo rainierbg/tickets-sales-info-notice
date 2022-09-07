@@ -1,0 +1,17 @@
+{
+  "name": "get_ticket_sale_blackpink",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "functions-framework --target=getTicketSaleBlackPink",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.2",
+    "puppeteer": "^17.1.0"
+  }
+}
