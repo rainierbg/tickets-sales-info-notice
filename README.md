@@ -5,7 +5,7 @@ I quickly thought about Google Drive and AppsScript:
  * I could creat a script that scrap the web where the ticket will be published using a Google SpreadSheet as support for tracking and dectecting new city tickets sale.  
  * Schedule script execution every 6 hours.  
 
-The problem with this aproach was that the content about ticket in the web is dynamic generated so, we needed a headless browser to get the content.
+The problem with this approach was that the content about ticket in the web is dynamic generated so, we needed a headless browser to get the content.
 
 ## This is where google cloud comes in...
 After some searching about accomplish dynamic web scrapping in AppsScript, I found this [reddit](https://www.reddit.com/r/GoogleAppsScript/comments/o1ccmy/comment/h22ulnf/?utm_source=share&utm_medium=web2x&context=3), this is where Google Cloud Functions and Puppeteer come in.  
