@@ -1,0 +1,53 @@
+function noticeBlackPinkConcert() {
+
+  getData().forEach(cityTicket =>{
+    var savedCities = getSavedCities();
+    var city = cityTicket.city;
+    if(!savedCities.length || !savedCities.includes(city)){
+      console.log(`${city} BlackPink tickets sales available!`)
+      sendMail(city, cityTicket.ticket);
+      //save city
+      saveCity(city)
+    } else {
+      console.log(`${city} already notified...`)
+    }
+  });
+
+}
+
+function getData(){
+  var url = "https://us-central1-raydevs-7b6f6.cloudfunctions.net/getTicketSaleBlackPink"
+  //fetch site content
+  var response = UrlFetchApp.fetch(url).getContentText();
+  return JSON.parse(response);
+}
+
+function getDataTest(){
+  return JSON.parse('[{"city":"SEOUL","ticket":"https://tickets.interpark.com/goods/22010748"},{"city":"SEOUL","ticket":"https://tickets.interpark.com/goods/22010748"},{"city":"JAPON","ticket":"https://tickets.interpark.com/goods/22010748"}]');
+}
+
+function getSavedCities(){
+  var numberOfValues = SpreadsheetApp.getActiveSheet().getRange("A1:A").getValues().filter(String).length;
+  var savedCities = numberOfValues > 0 
+                      ? SpreadsheetApp.getActiveSheet().getRange(1,1,numberOfValues).getValues()
+                      : [];
+  return flattenDeep(savedCities);
+}
+
+function sendMail(city, ticket){
+  console.log("Sending notification mail...")
+  var htmlBody = `${city} BlackPink tickets sales available!!<br>`+
+  `Ticket available <a href=${ticket}>here</a>`
+  MailApp.sendEmail({to: "XXXXXX@gmail.com, XXXXX.klk@gmail.com",
+                  subject: `${city} BlackPink tickets sales available!!`,
+                  htmlBody: htmlBody});
+}
+
+function saveCity(rowData) {
+  console.log("Saving the city...")
+  SpreadsheetApp.getActiveSpreadsheet().getSheets()[0].appendRow([rowData]);
+}
+
+function flattenDeep(arr1) {
+   return arr1.reduce((acc, val) => Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val), []);
+}
